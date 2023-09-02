@@ -68,7 +68,7 @@ export class DispenseComponent implements OnInit {
   iniatialize() {
     this.loading = true;
     this.message = 'loading resources';
-    this.redirect();
+    // this.redirect();
     this.interval = setInterval(() => {
       const isLoading = !(
         this.clients.length &&
