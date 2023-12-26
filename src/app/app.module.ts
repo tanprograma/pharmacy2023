@@ -48,6 +48,8 @@ import { ImportDispensedServerComponent } from './components/import-dispensed-se
 import { ReceiveComponent } from './components/receive/receive.component';
 import { CreateSupplierComponent } from './components/create-supplier/create-supplier.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { AddInventoryComponent } from './components/add-inventory/add-inventory.component';
+import { AddInventoryContainerComponent } from './components/add-inventory-container/add-inventory-container.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,8 @@ import { ReportsComponent } from './components/reports/reports.component';
     ReceiveComponent,
     CreateSupplierComponent,
     ReportsComponent,
+    AddInventoryComponent,
+    AddInventoryContainerComponent,
   ],
   imports: [
     BrowserModule,

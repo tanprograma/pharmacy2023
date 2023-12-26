@@ -1,0 +1,8 @@
+<div class="x">
+  <div class="loader" *ngIf="loading">
+    <app-loader [message]="message"></app-loader>
+  </div>
+  <div class="x-dispense loader__other">
+    <app-add-inventory (isLoading)="load($event)"></app-add-inventory>
+  </div>
+</div>

@@ -28,6 +28,8 @@ import { ImportDispensedServerComponent } from './components/import-dispensed-se
 import { ReceiveComponent } from './components/receive/receive.component';
 import { CreateSupplierComponent } from './components/create-supplier/create-supplier.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { AddInventoryComponent } from './components/add-inventory/add-inventory.component';
+import { AddInventoryContainerComponent } from './components/add-inventory-container/add-inventory-container.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/outlet/dispense' },
@@ -54,6 +56,7 @@ export const routes: Routes = [
       { path: 'client/create', component: CreateClientComponent },
       { path: 'supplier/create', component: CreateSupplierComponent },
       { path: 'medicine/create', component: CreateMedicineComponent },
+      { path: 'inventory/create', component: AddInventoryContainerComponent },
       { path: 'store/create', component: CreateStoreComponent },
       { path: 'stores/import', component: ImportStoresComponent },
       { path: 'units/import', component: ImportUnitsComponent },
