@@ -46,5 +46,6 @@ export class StockContainerComponent implements OnInit {
   ngOnInit(): void {
     this.getStores();
     this.getInventory();
+    this.date = new Date();
   }
 }
