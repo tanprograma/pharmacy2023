@@ -11,6 +11,7 @@ import { Store } from 'src/app/store';
 export class StockContainerComponent implements OnInit {
   stores: Store[] = [];
   stock: Stock[] = [];
+  date!: Date;
   loading = false;
   store = '';
   load_message = '';
@@ -30,6 +31,16 @@ export class StockContainerComponent implements OnInit {
       console.log(stock);
       this.loading = false;
     });
+  }
+  findIndex(item: Stock, stock: Stock[]) {
+    return (
+      stock.findIndex((i) => {
+        return i.commodity == item.commodity;
+      }) + 1
+    );
+  }
+  approximate(item: Stock) {
+    return Math.floor(item.stock / item.unit_value);
   }
 
   ngOnInit(): void {

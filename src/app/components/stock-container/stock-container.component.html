@@ -19,6 +19,31 @@
     <div class="stock-loading" *ngIf="loading">
       fetching data {{ load_message }}
     </div>
-    <app-stock [store]="store" [stock]="stock"></app-stock>
+    <div class="stock-container" *ngIf="stock.length > 0">
+      <h1>
+        INVENTORY SUMMARY {{ store.length > 0 ? (store | uppercase) : "" }}
+        {{ date.toLocaleDateString() }}
+      </h1>
+      <div class="t-container">
+        <table>
+          <thead>
+            <tr>
+              <th>sn</th>
+              <th>item</th>
+              <th>unit</th>
+              <th>quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of stock">
+              <td>{{ findIndex(item, stock) }}</td>
+              <td>{{ item.commodity }}</td>
+              <td>{{ item.unit }}</td>
+              <td>{{ approximate(item) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

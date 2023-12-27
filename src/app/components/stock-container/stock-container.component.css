@@ -20,6 +20,7 @@
   opacity: 50%;
   color: green;
   height: 100%;
+  width: 100%;
   z-index: 1;
   opacity: 50%;
 }
@@ -44,4 +45,46 @@ li:hover {
 .active {
   background-color: green;
   color: white;
+}
+/* code for part of table container */
+
+.stock-container {
+  height: 100%;
+}
+h1 {
+  height: 5vh;
+}
+.stock-container {
+  height: 90%;
+  overflow-y: scroll;
+}
+.stock-container::-webkit-scrollbar {
+  display: none;
+}
+table {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  color: black;
+  background-color: white;
+}
+th {
+  text-align: left;
+}
+th:nth-child(1) {
+  width: 10%;
+}
+
+th:nth-child(2),
+th:nth-child(3),
+th:nth-child(4) {
+  width: 30%;
+}
+td:nth-child(4) {
+  text-align: center;
+}
+th,
+td {
+  border: 1px solid lightgrey;
 }
