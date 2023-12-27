@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of stock">
-          <td>{{ findIndex(item) }}</td>
+          <td>{{ findIndex(item, stock) }}</td>
           <td>{{ item.commodity }}</td>
           <td>{{ item.unit }}</td>
           <td>{{ approximate(item) }}</td>

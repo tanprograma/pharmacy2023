@@ -14,10 +14,10 @@ export class StockComponent implements OnInit {
     this.date = new Date();
   }
 
-  findIndex(item: Stock) {
+  findIndex(item: Stock, stock: Stock[]) {
     return (
-      this.stock.findIndex((i) => {
-        i.commodity == item.commodity;
+      stock.findIndex((i) => {
+        return i.commodity == item.commodity;
       }) + 1
     );
   }

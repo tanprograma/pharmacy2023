@@ -9,8 +9,8 @@ import { Store } from 'src/app/store';
   styleUrls: ['./stock-container.component.css'],
 })
 export class StockContainerComponent implements OnInit {
-  stores!: Store[];
-  stock!: Stock[];
+  stores: Store[] = [];
+  stock: Stock[] = [];
   loading = false;
   store = '';
   load_message = '';
