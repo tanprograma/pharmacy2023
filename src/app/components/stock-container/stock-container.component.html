@@ -19,6 +19,6 @@
     <div class="stock-loading" *ngIf="loading">
       fetching data {{ load_message }}
     </div>
-    <app-stock *ngIf="!loading" [store]="store" [stock]="stock"></app-stock>
+    <app-stock [store]="store" [stock]="stock"></app-stock>
   </div>
 </div>

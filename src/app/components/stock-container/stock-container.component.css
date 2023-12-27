@@ -4,10 +4,15 @@
   grid-template-columns: 20% 80%;
   padding: 10px;
 }
+.stock-info {
+  position: relative;
+  height: 100%;
+}
 .stock-menu {
   background-color: aqua;
 }
 .stock-loading {
+  position: absolute;
   background-color: rgb(145, 138, 138);
   display: flex;
   justify-content: center;
@@ -15,6 +20,8 @@
   opacity: 50%;
   color: green;
   height: 100%;
+  z-index: 1;
+  opacity: 50%;
 }
 ul {
   height: 100%;

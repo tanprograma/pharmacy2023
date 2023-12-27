@@ -1,4 +1,4 @@
-<div class="stock-container">
+<div class="stock-container" *ngIf="stock.length > 0">
   <h1>
     INVENTORY SUMMARY {{ store.length > 0 ? (store | uppercase) : "" }}
     {{ date.toLocaleDateString() }}
@@ -24,3 +24,4 @@
     </table>
   </div>
 </div>
+<div *ngIf="stock.length == 0">try to add or fetch results</div>
