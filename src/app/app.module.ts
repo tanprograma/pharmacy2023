@@ -50,6 +50,8 @@ import { CreateSupplierComponent } from './components/create-supplier/create-sup
 import { ReportsComponent } from './components/reports/reports.component';
 import { AddInventoryComponent } from './components/add-inventory/add-inventory.component';
 import { AddInventoryContainerComponent } from './components/add-inventory-container/add-inventory-container.component';
+import { StockComponent } from './components/stock/stock.component';
+import { StockContainerComponent } from './components/stock-container/stock-container.component';
 
 @NgModule({
   declarations: [
@@ -95,6 +97,8 @@ import { AddInventoryContainerComponent } from './components/add-inventory-conta
     ReportsComponent,
     AddInventoryComponent,
     AddInventoryContainerComponent,
+    StockComponent,
+    StockContainerComponent,
   ],
   imports: [
     BrowserModule,

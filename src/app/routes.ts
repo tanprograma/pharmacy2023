@@ -30,6 +30,7 @@ import { CreateSupplierComponent } from './components/create-supplier/create-sup
 import { ReportsComponent } from './components/reports/reports.component';
 import { AddInventoryComponent } from './components/add-inventory/add-inventory.component';
 import { AddInventoryContainerComponent } from './components/add-inventory-container/add-inventory-container.component';
+import { StockContainerComponent } from './components/stock-container/stock-container.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/outlet/dispense' },
@@ -78,6 +79,10 @@ export const routes: Routes = [
       { path: 'reports', component: ReportsComponent },
       { path: 'outlet/:outlet', component: StatisticClinicSummaryComponent },
     ],
+  },
+  {
+    path: 'stock',
+    component: StockContainerComponent,
   },
   {
     path: 'orders',

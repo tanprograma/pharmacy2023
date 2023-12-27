@@ -1,0 +1,24 @@
+<div class="stock">
+  <!-- code for menu -->
+  <div class="stock-menu">
+    <ul>
+      <li (click)="getInventory()" [class.active]="store == ''">
+        stock summary
+      </li>
+      <li
+        *ngFor="let s of stores"
+        (click)="getInventory(s.name)"
+        [class.active]="store == s.name"
+      >
+        {{ s.name }}
+      </li>
+    </ul>
+  </div>
+  <!-- code for summary view -->
+  <div class="stock-info">
+    <div class="stock-loading" *ngIf="loading">
+      fetching data {{ load_message }}
+    </div>
+    <app-stock *ngIf="!loading" [store]="store" [stock]="stock"></app-stock>
+  </div>
+</div>

@@ -4,6 +4,12 @@ import { Observable, catchError, of, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Medicine } from '../medicine';
+export interface Stock {
+  commodity: string;
+  stock: number;
+  unit: string;
+  unit_value: number;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -20,6 +26,23 @@ export class InventoryService {
     return this.inventories.filter((i) => {
       return i.outlet == store;
     });
+  }
+  getStock(store?: string): Observable<Stock[]> {
+    // console.log({ url: this.url });
+    if (store != undefined) {
+      return this.http.get<Stock[]>(`${this.url}/stock/${store}`).pipe(
+        tap((_) => {
+          console.log('fetched data');
+        }),
+        catchError(this.errorHandler('something is wrong', []))
+      );
+    }
+    return this.http.get<Stock[]>(`${this.url}/stock`).pipe(
+      tap((_) => {
+        console.log('fetched data');
+      }),
+      catchError(this.errorHandler('something is wrong', []))
+    );
   }
   getSummary(keys: Medicine[], inventory: Inventory[]) {
     const modInventory: any = [];
