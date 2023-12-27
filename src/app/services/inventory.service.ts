@@ -29,7 +29,7 @@ export class InventoryService {
   }
   getStock(store?: string): Observable<Stock[]> {
     // console.log({ url: this.url });
-    if (store != undefined) {
+    if (store) {
       return this.http.get<Stock[]>(`${this.url}/stock/${store}`).pipe(
         tap((_) => {
           console.log('fetched data');

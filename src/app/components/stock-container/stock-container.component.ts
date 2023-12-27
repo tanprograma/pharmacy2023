@@ -9,11 +9,12 @@ import { Store } from 'src/app/store';
   styleUrls: ['./stock-container.component.css'],
 })
 export class StockContainerComponent implements OnInit {
-  loading = true;
-  store = '';
-  load_message = '';
   stores: Store[] = [];
   stock: Stock[] = [];
+  loading = false;
+  store = '';
+  load_message = '';
+
   constructor(
     private storeService: StoreService,
     private inventoryService: InventoryService
@@ -26,9 +27,11 @@ export class StockContainerComponent implements OnInit {
     this.loading = true;
     this.inventoryService.getStock(store).subscribe((stock) => {
       this.stock = stock;
+      console.log(stock);
       this.loading = false;
     });
   }
+
   ngOnInit(): void {
     this.getStores();
     this.getInventory();

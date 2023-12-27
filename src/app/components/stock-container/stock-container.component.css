@@ -4,6 +4,9 @@
   grid-template-columns: 20% 80%;
   padding: 10px;
 }
+.stock-menu {
+  background-color: aqua;
+}
 .stock-loading {
   background-color: rgb(145, 138, 138);
   display: flex;
