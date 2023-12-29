@@ -53,7 +53,6 @@ footer {
 }
 @media print {
   header,
-  .stock-menu,
   footer {
     display: none;
   }

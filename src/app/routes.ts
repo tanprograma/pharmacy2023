@@ -69,6 +69,7 @@ export const routes: Routes = [
         component: ImportDispensedServerComponent,
       },
       { path: 'inventory/import', component: ImportInventoryComponent },
+      { path: 'inventory/add', component: AddInventoryContainerComponent },
     ],
   },
   {

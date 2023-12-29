@@ -20,10 +20,32 @@
       fetching data {{ load_message }}
     </div>
     <div class="stock-container" *ngIf="stock.length > 0">
-      <h1>
-        INVENTORY SUMMARY {{ store.length > 0 ? (store | uppercase) : "" }}
-        {{ date.toLocaleDateString() }}
-      </h1>
+      <div class="heading">
+        <div class="stock-search">
+          <input
+            type="text"
+            name="searchinput"
+            id="searchinput"
+            class="search-item search-input"
+            placeholder="search item"
+            [(ngModel)]="term"
+            #elem
+            (keyup)="onChange(elem.value)"
+          />
+
+          <button
+            class="search-item search-clear"
+            id="clearbtn"
+            (click)="onClear()"
+          >
+            CLEAR
+          </button>
+        </div>
+        <h1>
+          INVENTORY SUMMARY {{ store.length > 0 ? (store | uppercase) : "" }}
+          {{ date.toLocaleDateString() }}
+        </h1>
+      </div>
       <div class="t-container">
         <table>
           <thead>
@@ -35,7 +57,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of stock">
+            <tr *ngFor="let item of displayed">
               <td>{{ findIndex(item, stock) }}</td>
               <td>{{ item.commodity }}</td>
               <td>{{ item.unit }}</td>

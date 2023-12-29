@@ -11,6 +11,8 @@ import { Store } from 'src/app/store';
 export class StockContainerComponent implements OnInit {
   stores: Store[] = [];
   stock: Stock[] = [];
+  term = '';
+  displayed!: Stock[];
   date!: Date;
   loading = false;
   store = '';
@@ -23,12 +25,23 @@ export class StockContainerComponent implements OnInit {
   getStores() {
     this.storeService.getStores().subscribe((stores) => (this.stores = stores));
   }
-
+  onChange(v: string) {
+    this.displayed = this.stock.filter((i) => {
+      const regex = new RegExp(v, 'i');
+      return regex.test(i.commodity);
+    });
+  }
+  onClear() {
+    this.displayed = this.stock;
+    this.term = '';
+  }
   getInventory(store?: string) {
+    this.term = '';
+    this.store = store ? store : '';
     this.loading = true;
     this.inventoryService.getStock(store).subscribe((stock) => {
       this.stock = stock;
-      console.log(stock);
+      this.displayed = this.stock;
       this.loading = false;
     });
   }

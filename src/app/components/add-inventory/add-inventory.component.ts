@@ -69,11 +69,7 @@ export class AddInventoryComponent {
     this.message = 'loading resources';
     // this.redirect();
     this.interval = setInterval(() => {
-      const isLoading = !(
-        this.clients.length &&
-        this.medicines.length &&
-        this.stores.length
-      );
+      const isLoading = !(this.medicines.length && this.stores.length);
       if (isLoading) {
         return;
       }
