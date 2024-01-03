@@ -1,0 +1,18 @@
+.x {
+  height: 100%;
+  width: 100%;
+  background-color: brown;
+  position: relative;
+}
+.x-dispense {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.loader {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+
+  z-index: 1;
+}

@@ -55,6 +55,29 @@ export class StockContainerComponent implements OnInit {
   approximate(item: Stock) {
     return Math.floor(item.stock / item.unit_value);
   }
+  calcDate(date: string | undefined): string {
+    if (typeof date == 'string') {
+      return new Date(date).toLocaleDateString();
+    }
+
+    return 'no date';
+  }
+  calcExpiry(date: string | undefined): boolean {
+    if (typeof date == 'string') {
+      const dayMillSecs = 1000 * 60 * 60 * 24;
+      const diff = new Date(date).getTime() - Date.now();
+      const isExpired = Math.round(diff / dayMillSecs) > 90 ? false : true;
+      return isExpired;
+    }
+    return false;
+  }
+  withExpired(elem: HTMLInputElement) {
+    this.displayed = elem.checked
+      ? this.stock.filter((i) => {
+          return this.calcExpiry(i.expiry);
+        })
+      : this.stock;
+  }
 
   ngOnInit(): void {
     this.getStores();

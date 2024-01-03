@@ -9,6 +9,7 @@ export interface Stock {
   stock: number;
   unit: string;
   unit_value: number;
+  expiry?: string;
 }
 @Injectable({
   providedIn: 'root',
@@ -195,6 +196,16 @@ export class InventoryService {
   }
   uploadBeginning(i: any): Observable<Inventory[]> {
     const url = `${this.url}/beginnings/update/${i.store}`;
+
+    return this.http.post<any>(url, i.items, this.httpOptions).pipe(
+      tap((_) => {
+        console.log('upload successful');
+      }),
+      catchError(this.errorHandler<Inventory[]>('something is wrong', []))
+    );
+  }
+  updateExpiry(i: any): Observable<Inventory[]> {
+    const url = `${this.url}/expiry/update`;
 
     return this.http.post<any>(url, i.items, this.httpOptions).pipe(
       tap((_) => {

@@ -31,6 +31,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { AddInventoryComponent } from './components/add-inventory/add-inventory.component';
 import { AddInventoryContainerComponent } from './components/add-inventory-container/add-inventory-container.component';
 import { StockContainerComponent } from './components/stock-container/stock-container.component';
+import { AddExpiryContainerComponent } from './components/add-expiry-container/add-expiry-container.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/outlet/dispense' },
@@ -64,6 +65,7 @@ export const routes: Routes = [
       { path: 'medicines/import', component: ImportMedicinesComponent },
       { path: 'clients/import', component: ImportClientsComponent },
       { path: 'dispensed/import', component: ImportDispensedComponent },
+      { path: 'expiry/create', component: AddExpiryContainerComponent },
       {
         path: 'dispensed/importserver',
         component: ImportDispensedServerComponent,

@@ -92,6 +92,28 @@ h1 {
   height: 5vh;
   text-align: center;
   padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+h1 span {
+  flex: 0 0 90%;
+  display: block;
+}
+h1 input,
+h1 label {
+  display: block;
+  margin: 4px;
+}
+h1 input {
+  flex: 0 0 auto;
+  font-size: medium;
+  width: 20px;
+  height: 20px;
+}
+h1 label {
+  flex: 0 0 auto;
+  font-size: medium;
 }
 
 table {
@@ -132,7 +154,10 @@ th:nth-child(3) {
 td:nth-child(4) {
   text-align: center;
 }
-
+.expired {
+  background-color: red;
+  color: white;
+}
 @media print {
   .stock-menu {
     display: none;

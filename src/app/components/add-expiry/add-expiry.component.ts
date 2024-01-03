@@ -11,15 +11,15 @@ import { InventoryService } from 'src/app/services/inventory.service';
 import { Inventory } from 'src/app/inventory';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-add-inventory',
-  templateUrl: './add-inventory.component.html',
-  styleUrls: ['./add-inventory.component.css'],
+  selector: 'app-add-expiry',
+  templateUrl: './add-expiry.component.html',
+  styleUrls: ['./add-expiry.component.css'],
 })
-export class AddInventoryComponent {
+export class AddExpiryComponent {
   @Output() isLoading = new EventEmitter<boolean>();
   interval!: any;
   message!: string;
-  available: number = 0;
+
   clients: Client[] = [];
   stores: Store[] = [];
   medicines: Medicine[] = [];
@@ -31,7 +31,6 @@ export class AddInventoryComponent {
   payloads: {
     commodity: string;
     expiry?: string;
-    payload: { date?: number; quantity: number };
   }[] = [];
   medicine: string = '';
   requested = 0;
@@ -55,16 +54,6 @@ export class AddInventoryComponent {
     }, 5000);
   }
 
-  getAvailable() {
-    console.log('running available');
-    const item = this.inventory.find((i) => {
-      return i.commodity == this.medicine;
-    });
-    console.log({ item });
-    if (!item) return;
-    this.available = this.inventoryService.getAvailable(item);
-    console.log(this.available);
-  }
   iniatialize() {
     this.loading = true;
     this.message = 'loading resources';
@@ -142,14 +131,13 @@ export class AddInventoryComponent {
     });
     if (!found) {
       this.payloads.splice(0, 0, {
-        payload: { quantity: this.requested },
         commodity: this.medicine,
         expiry: this.expiryDate,
       });
       this.clearForm();
       return;
     }
-    this.payloads[indexx].payload.quantity += this.requested;
+
     this.clearForm();
   }
   clearForm() {
@@ -174,12 +162,11 @@ export class AddInventoryComponent {
     this.loading = true;
 
     this.inventoryService
-      .uploadBeginning({
-        store: this.outlet,
+      .updateExpiry({
         items: this.payloads.map((i) => {
           return {
             commodity: i.commodity,
-            beginning: i.payload.quantity,
+
             expiry: i.expiry,
           };
         }),
