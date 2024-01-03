@@ -60,7 +60,7 @@ export class StockContainerComponent implements OnInit {
       return new Date(date).toLocaleDateString();
     }
 
-    return 'no date';
+    return '';
   }
   calcExpiry(date: string | undefined): boolean {
     if (typeof date == 'string') {
