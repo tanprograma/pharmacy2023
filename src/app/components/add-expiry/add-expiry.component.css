@@ -136,6 +136,7 @@ th:nth-child(3) {
 th,
 td {
   text-align: left;
+  border: 1px lightgray;
 }
 
 tbody tr:hover {
