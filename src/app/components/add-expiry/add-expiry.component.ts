@@ -146,15 +146,16 @@ export class AddExpiryComponent {
     this.expiryDate = '';
   }
   clearPrescription(item: any) {
-    if (!item) return;
-    this.payloads = this.payloads.filter((i: any) => {
-      return i.commodity != item.commodity;
-    });
-    this.loading = false;
-    if (!this.payloads.length) {
-      this.dispensed += 1;
+    if (item != undefined || item != null) {
+      this.payloads = this.payloads.filter((i: any) => {
+        return i.commodity != item.commodity;
+      });
+      this.loading = false;
+      if (!this.payloads.length) {
+        this.dispensed += 1;
 
-      this.uploaded = [];
+        this.uploaded = [];
+      }
     }
   }
   dispense() {

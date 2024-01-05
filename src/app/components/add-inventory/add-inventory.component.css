@@ -121,7 +121,9 @@ select {
 /* styles for prescription items */
 table {
   border-collapse: collapse;
+  border-radius: 10px;
   width: 100%;
+  font-size: smaller;
 }
 th:nth-child(2) {
   width: 45%;
@@ -142,6 +144,7 @@ th,
 td {
   text-align: left;
   border: 1px solid black;
+  padding: 2px;
 }
 td:nth-child(4) {
   text-align: center;
