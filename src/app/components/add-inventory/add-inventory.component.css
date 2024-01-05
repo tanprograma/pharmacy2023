@@ -141,7 +141,7 @@ th:nth-child(5) {
 th,
 td {
   text-align: left;
-  border: 1px lightgray;
+  border: 1px solid black;
 }
 td:nth-child(4) {
   text-align: center;

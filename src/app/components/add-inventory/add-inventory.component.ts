@@ -28,6 +28,7 @@ export class AddInventoryComponent {
   inventory: Inventory[] = [];
   expiryDate: string = '';
   outlet: string = '';
+
   payloads: {
     commodity: string;
     expiry?: string;
