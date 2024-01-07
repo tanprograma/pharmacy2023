@@ -1,3 +1,90 @@
-<div class="advert">
-  <app-advert [message]="'coming later' | uppercase"></app-advert>
+<div class="order" *ngIf="!loading">
+  <div class="t-container" *ngIf="!edit && !isDelete && order != undefined">
+    <div class="heading">
+      <div class="controls">
+        <button class="controls-item" id="clearbtn" (click)="openAdd()">
+          ADD
+        </button>
+        <button class="controls-item" (click)="saveAll()">SAVE</button>
+      </div>
+      <div class="stock-search">
+        <input
+          type="text"
+          name="searchinput"
+          id="searchinput"
+          class="search-item search-input"
+          placeholder="search item"
+          #elem
+          (keyup)="onChange(elem.value)"
+        />
+
+        <button
+          class="search-item search-clear"
+          id="clearbtn"
+          (click)="onClear()"
+        >
+          CLEAR
+        </button>
+      </div>
+      <h1>order:{{ order.title | uppercase }} order id: {{ order._id }}</h1>
+    </div>
+    <div class="t-container-table">
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>item</th>
+            <th>unit</th>
+            <th>quantity</th>
+            <th>actions</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of displayed">
+            <td>{{ item.commodity }}</td>
+            <td>{{ item.unit }}</td>
+            <td>
+              <span>{{ item.quantity }}</span>
+            </td>
+            <td><button (click)="showEdit(item)">edit</button></td>
+            <td><button (click)="deleteItem(item)">delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="edit editbox" *ngIf="edit && order != undefined">
+    <div class="edit-form">
+      <div class="formgroup info">
+        <p>item :{{ editItem.commodity }}</p>
+
+        <p>unit: {{ editItem.unit }}</p>
+      </div>
+      <div class="formgroup">
+        <label for="quantity"></label>
+        <input type="number" name="" id="" [(ngModel)]="editItem.quantity" />
+      </div>
+      <div class="formgroup">
+        <button (click)="saveItem()">SAVE</button>
+      </div>
+    </div>
+  </div>
+  <div class="edit should-confirm" *ngIf="shouldConfirm">
+    <div class="edit-form should-confirm-items">
+      <div class="formgroup">
+        <p>{{ message }}</p>
+        <button class="confirm-btn" (click)="confirm()">CONFIRM</button>
+      </div>
+    </div>
+  </div>
+  <div class="add" *ngIf="shouldAdd">
+    <div class="add-form">
+      <div class="control"><button (click)="close()">CLOSE</button></div>
+      <div class="add-item">
+        <app-order-add (getOrderItem)="add($event)"></app-order-add>
+      </div>
+    </div>
+  </div>
 </div>
+<div class="loading" *ngIf="loading">wait ... saving order</div>

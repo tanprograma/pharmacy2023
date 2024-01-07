@@ -132,7 +132,7 @@ export class AddExpiryComponent {
     if (!found) {
       this.payloads.splice(0, 0, {
         commodity: this.medicine,
-        expiry: this.expiryDate,
+        expiry: this.expiryDate.length > 0 ? this.expiryDate : undefined,
       });
       this.clearForm();
       return;

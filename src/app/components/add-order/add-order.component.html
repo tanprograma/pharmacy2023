@@ -5,10 +5,10 @@
   <div class="header">INVENTORY FORM</div>
   <div class="form">
     <div class="formheader">
-      <h2>EXPIRY FORM</h2>
+      <h2>INVENTORY FORM</h2>
     </div>
     <div class="formitems">
-      <!-- <div class="formgroup">
+      <div class="formgroup">
         <label for="outlet">outlet</label>
         <input
           list="stores"
@@ -23,24 +23,41 @@
             {{ _outlet.name }}
           </option>
         </datalist>
-      </div> -->
+      </div>
       <div class="formgroup">
         <label for="medicine">medicine</label>
-        <input list="medicines" #y [(ngModel)]="medicine" />
+        <input
+          list="medicines"
+          #y
+          [(ngModel)]="medicine"
+          (input)="getAvailable()"
+        />
         <datalist id="medicines">
           <option *ngFor="let _medicine of medicines" [value]="_medicine.name">
             {{ _medicine.name }}
           </option>
         </datalist>
       </div>
-
+      <div class="formgroup">
+        <label for="unit">unit</label>
+        <input #unit type="text" [value]="'each'" />
+      </div>
+      <div class="formgroup">
+        <label for="quantity">quantity</label>
+        <input type="number" [(ngModel)]="requested" />
+      </div>
       <div class="formgroup">
         <label for="expiry">expiry</label>
         <input type="date" [(ngModel)]="expiryDate" />
       </div>
 
+      <div class="formgroup" *ngIf="y.value.length">
+        <div class="available">
+          <p>available {{ available ? available : 0 }}</p>
+        </div>
+      </div>
       <div class="formgroup">
-        <button class="submit" (click)="add()">ADD EXPIRY</button>
+        <button class="submit" (click)="add()">ADD TO INVENTORY</button>
       </div>
     </div>
   </div>
@@ -48,7 +65,7 @@
   <div class="items__container">
     <div class="head">
       <h2 class="head__content">
-        ITEMS TO UPDATE EXPIRY ({{ payloads.length }})
+        INVENTORY ITEMS ({{ payloads.length }})
         <span *ngIf="uploaded.length">UPLOADED ({{ uploaded.length }})</span>
         <span>ADDED: ({{ dispensed }})</span>
       </h2>
@@ -59,6 +76,8 @@
           <tr>
             <th>outlet</th>
             <th>medicine</th>
+            <th>unit</th>
+            <th>quantity</th>
             <th>expiry</th>
           </tr>
         </thead>
@@ -66,10 +85,60 @@
           <tr *ngFor="let i of payloads">
             <td>{{ outlet }}</td>
             <td>{{ i.commodity }}</td>
-            <td>{{ !i.expiry ? "" : i.expiry }}</td>
+            <td>each</td>
+            <td>
+              <input
+                type="number"
+                name=""
+                id=""
+                [(ngModel)]="i.payload.quantity"
+              />
+            </td>
+            <td>{{ i.expiry }}</td>
           </tr>
         </tbody>
       </table>
+      <!-- <ul>
+          <li>
+            <h3>outlet</h3>
+            <p>{{ outlet }}</p>
+          </li>
+
+          <li>
+            <h3>medicine</h3>
+            <p>{{ i.commodity }}</p>
+          </li>
+          <li>
+            <h3>unit</h3>
+            <p>each</p>
+          </li>
+          <li>
+            <h3>quantity</h3>
+
+            <p>
+              <input
+                type="number"
+                name=""
+                id=""
+                [(ngModel)]="i.payload.quantity"
+              />
+            </p>
+          </li>
+          <li>
+            <h3>expiry</h3>
+
+            <p>
+              <input type="date" name="" id="" [(ngModel)]="i.expiry" />
+            </p>
+          </li>
+          <li>
+            
+
+            <p>
+              <button (click)="delete(i)">DELETE</button>
+            </p>
+          </li>
+        </ul> -->
     </div>
     <div class="dispense">
       <div class="formgroup submitted">

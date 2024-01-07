@@ -44,6 +44,11 @@
         <li [class.selected]="stock == selected">
           <a routerLink="/stock" #stock (click)="select(stock)">stock</a>
         </li>
+        <li [class.selected]="orders == selected">
+          <a routerLink="/orders/view" #orders (click)="select(orders)"
+            >orders</a
+          >
+        </li>
         <!-- <li [class.selected]="receive == selected">
           <a routerLink="/outlet/receive" #receive (click)="select(receive)"
             >receive</a

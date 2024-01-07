@@ -1,21 +1,7 @@
-.dispense {
-  background-color: white;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-.header {
-  flex: 0 0 100%;
-  height: 8%;
-  text-align: center;
-}
-
 .form {
-  display: block;
-
   background-color: rgb(246, 243, 243);
   flex: 0 0 calc(100% * (1 / 3));
-  height: 92%;
+  height: 100%;
 }
 .formheader {
   height: 7%;

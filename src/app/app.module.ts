@@ -54,6 +54,9 @@ import { StockComponent } from './components/stock/stock.component';
 import { StockContainerComponent } from './components/stock-container/stock-container.component';
 import { AddExpiryComponent } from './components/add-expiry/add-expiry.component';
 import { AddExpiryContainerComponent } from './components/add-expiry-container/add-expiry-container.component';
+import { AddOrderComponent } from './components/add-order/add-order.component';
+import { AddOrderContainerComponent } from './components/add-order-container/add-order-container.component';
+import { OrderAddComponent } from './components/order-add/order-add.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +106,9 @@ import { AddExpiryContainerComponent } from './components/add-expiry-container/a
     StockContainerComponent,
     AddExpiryComponent,
     AddExpiryContainerComponent,
+    AddOrderComponent,
+    AddOrderContainerComponent,
+    OrderAddComponent,
   ],
   imports: [
     BrowserModule,

@@ -94,7 +94,7 @@
                 [(ngModel)]="i.payload.quantity"
               />
             </td>
-            <td>{{ i.expiry }}</td>
+            <td>{{ !i.expiry ? "" : i.expiry }}</td>
           </tr>
         </tbody>
       </table>

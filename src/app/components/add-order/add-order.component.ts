@@ -3,46 +3,44 @@ import { Observable } from 'rxjs';
 import { Medicine } from 'src/app/medicine';
 import { MedicineService } from 'src/app/services/medicine.service';
 import { of } from 'rxjs';
-
+import { Client } from 'src/app/client';
+import { Store } from 'src/app/store';
 import { ClientsService } from 'src/app/services/clients.service';
-
+import { StoreService } from 'src/app/services/store.service';
 import { InventoryService } from 'src/app/services/inventory.service';
-
+import { Inventory } from 'src/app/inventory';
 import { Router } from '@angular/router';
-import { OrderItem, Stock } from 'src/app/interfaces';
-import { OrderService } from 'src/app/services/order.service';
 @Component({
-  selector: 'app-orders-create',
-  templateUrl: './orders-create.component.html',
-  styleUrls: ['./orders-create.component.css'],
+  selector: 'app-add-order',
+  templateUrl: './add-order.component.html',
+  styleUrls: ['./add-order.component.css'],
 })
-export class OrdersCreateComponent {
+export class AddOrderComponent {
   @Output() isLoading = new EventEmitter<boolean>();
   interval!: any;
   message!: string;
   available: number = 0;
-
+  clients: Client[] = [];
+  stores: Store[] = [];
   medicines: Medicine[] = [];
   dispensed: number = 0;
   uploaded: any = [];
-  stocks: Stock[] = [];
+  inventory: Inventory[] = [];
   expiryDate: string = '';
   outlet: string = '';
-  // stock item
-  stockItem: Stock = {
-    commodity: '',
-    stock: 0,
-    unit: '',
-    unit_value: 0,
-  };
-  payloads: OrderItem[] = [];
+
+  payloads: {
+    commodity: string;
+    expiry?: string;
+    payload: { date?: number; quantity: number };
+  }[] = [];
   medicine: string = '';
   requested = 0;
   loading: boolean = false;
 
   constructor(
     private medicineService: MedicineService,
-    private orderService: OrderService,
+    private storeService: StoreService,
     private inventoryService: InventoryService,
     private router: Router
   ) {}
@@ -57,24 +55,23 @@ export class OrdersCreateComponent {
       }
     }, 5000);
   }
-  getDate(d: string | undefined) {
-    if (!d) return '';
-    return new Date(d).toLocaleDateString();
-  }
+
   getAvailable() {
     console.log('running available');
-    const item = this.stocks.find((i) => {
+    const item = this.inventory.find((i) => {
       return i.commodity == this.medicine;
     });
+    console.log({ item });
     if (!item) return;
-    this.stockItem = item;
+    this.available = this.inventoryService.getAvailable(item);
+    console.log(this.available);
   }
   iniatialize() {
     this.loading = true;
     this.message = 'loading resources';
     // this.redirect();
     this.interval = setInterval(() => {
-      const isLoading = !(this.medicines.length && this.stocks.length);
+      const isLoading = !(this.medicines.length && this.stores.length);
       if (isLoading) {
         return;
       }
@@ -89,12 +86,26 @@ export class OrdersCreateComponent {
 
   getResources() {
     this.getMedicines();
-    this.getStocks();
+    this.getStores();
   }
 
-  getStocks() {
-    this.inventoryService.getStock().subscribe((i) => {
-      this.stocks = i;
+  getInventoryByStore() {
+    this.inventoryService
+      .getInventoryByStore(this.prescription.outlet)
+      .subscribe((i) => {
+        this.inventory = i;
+        console.log({ inventory: this.inventory });
+      });
+  }
+
+  getStores() {
+    if (this.storeService.stores.length) {
+      this.stores = this.storeService.stores;
+      return;
+    }
+    this.storeService.getStores().subscribe((i) => {
+      this.stores = i;
+      this.storeService.stores = i;
     });
   }
   getMedicines() {
@@ -109,12 +120,12 @@ export class OrdersCreateComponent {
   }
 
   prescription: {
-    title: string;
-
-    items: { quantity: number; commodity: string; unit: string }[];
+    outlet: string;
+    date?: any;
+    items: { quantity: number; commodity: string }[];
   } = {
-    title: '',
-
+    outlet: '',
+    date: 0,
     items: [],
   };
 
@@ -131,49 +142,58 @@ export class OrdersCreateComponent {
       return i.commodity == this.medicine;
     });
     if (!found) {
-      this.prescription.items.splice(0, 0, {
-        quantity: this.requested,
-        commodity: this.stockItem.commodity,
-        unit: this.stockItem.unit,
+      this.payloads.splice(0, 0, {
+        payload: { quantity: this.requested },
+        commodity: this.medicine,
+        expiry: this.expiryDate,
       });
       this.clearForm();
       return;
     }
-    this.payloads[indexx].quantity += this.requested;
+    this.payloads[indexx].payload.quantity += this.requested;
     this.clearForm();
   }
   clearForm() {
     this.requested = 0;
     this.medicine = '';
-    this.stockItem = {
-      commodity: '',
-      stock: 0,
-      unit: '',
-      unit_value: 0,
-    };
+    this.expiryDate = '';
   }
-  clearPrescription() {
-    this.prescription = {
-      title: '',
-      items: [],
-    };
+  clearPrescription(item: any) {
+    if (!item) return;
+    this.payloads = this.payloads.filter((i: any) => {
+      return i.commodity != item.commodity;
+    });
     this.loading = false;
+    if (!this.payloads.length) {
+      this.dispensed += 1;
+
+      this.uploaded = [];
+    }
   }
   dispense() {
-    if (!this.prescription.items.length) return;
+    if (!this.payloads.length) return;
     this.loading = true;
 
-    this.orderService.createOrder(this.prescription).subscribe((i) => {
-      if (!i) {
-        this.loading = false;
-        return;
-      }
-      this.clearPrescription();
-    });
-  }
-  removeItem(i: OrderItem) {
-    this.prescription.items = this.prescription.items.filter((item) => {
-      return item != i;
-    });
+    this.inventoryService
+      .uploadBeginning({
+        store: this.outlet,
+        items: this.payloads.map((i) => {
+          return {
+            commodity: i.commodity,
+            beginning: i.payload.quantity,
+            expiry: i.expiry,
+          };
+        }),
+      })
+      .subscribe((i) => {
+        if (!i.length) {
+          this.loading = false;
+          return;
+        }
+        this.uploaded.splice(0, 0, ...i);
+        i.forEach((item: any) => {
+          this.clearPrescription(item);
+        });
+      });
   }
 }

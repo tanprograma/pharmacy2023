@@ -12,22 +12,21 @@ import { Router } from '@angular/router';
 import { OrderItem, Stock } from 'src/app/interfaces';
 import { OrderService } from 'src/app/services/order.service';
 @Component({
-  selector: 'app-orders-create',
-  templateUrl: './orders-create.component.html',
-  styleUrls: ['./orders-create.component.css'],
+  selector: 'app-order-add',
+  templateUrl: './order-add.component.html',
+  styleUrls: ['./order-add.component.css'],
 })
-export class OrdersCreateComponent {
+export class OrderAddComponent {
+  @Output() getOrderItem = new EventEmitter<OrderItem>();
   @Output() isLoading = new EventEmitter<boolean>();
   interval!: any;
   message!: string;
   available: number = 0;
 
   medicines: Medicine[] = [];
-  dispensed: number = 0;
-  uploaded: any = [];
+
   stocks: Stock[] = [];
-  expiryDate: string = '';
-  outlet: string = '';
+
   // stock item
   stockItem: Stock = {
     commodity: '',
@@ -35,28 +34,21 @@ export class OrdersCreateComponent {
     unit: '',
     unit_value: 0,
   };
-  payloads: OrderItem[] = [];
+
   medicine: string = '';
   requested = 0;
   loading: boolean = false;
 
   constructor(
     private medicineService: MedicineService,
-    private orderService: OrderService,
-    private inventoryService: InventoryService,
-    private router: Router
+
+    private inventoryService: InventoryService
   ) {}
   ngOnInit(): void {
     this.getResources();
     this.iniatialize();
   }
-  redirect() {
-    setTimeout(() => {
-      if (this.loading) {
-        this.router.navigate(['/timeout']);
-      }
-    }, 5000);
-  }
+
   getDate(d: string | undefined) {
     if (!d) return '';
     return new Date(d).toLocaleDateString();
@@ -108,38 +100,12 @@ export class OrdersCreateComponent {
     });
   }
 
-  prescription: {
-    title: string;
-
-    items: { quantity: number; commodity: string; unit: string }[];
-  } = {
-    title: '',
-
-    items: [],
-  };
-
-  delete(i: any) {
-    this.payloads = this.payloads.filter((x) => {
-      return x != i;
-    });
-  }
   add() {
-    if (!this.requested && !this.medicine.length) return;
-    let indexx: number = 0;
-    const found = this.payloads.find((i, index) => {
-      indexx = index;
-      return i.commodity == this.medicine;
+    this.getOrderItem.emit({
+      commodity: this.medicine,
+      unit: this.stockItem.unit,
+      quantity: this.requested,
     });
-    if (!found) {
-      this.prescription.items.splice(0, 0, {
-        quantity: this.requested,
-        commodity: this.stockItem.commodity,
-        unit: this.stockItem.unit,
-      });
-      this.clearForm();
-      return;
-    }
-    this.payloads[indexx].quantity += this.requested;
     this.clearForm();
   }
   clearForm() {
@@ -151,29 +117,5 @@ export class OrdersCreateComponent {
       unit: '',
       unit_value: 0,
     };
-  }
-  clearPrescription() {
-    this.prescription = {
-      title: '',
-      items: [],
-    };
-    this.loading = false;
-  }
-  dispense() {
-    if (!this.prescription.items.length) return;
-    this.loading = true;
-
-    this.orderService.createOrder(this.prescription).subscribe((i) => {
-      if (!i) {
-        this.loading = false;
-        return;
-      }
-      this.clearPrescription();
-    });
-  }
-  removeItem(i: OrderItem) {
-    this.prescription.items = this.prescription.items.filter((item) => {
-      return item != i;
-    });
   }
 }

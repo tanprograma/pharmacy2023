@@ -1,3 +1,94 @@
-<div class="advert">
-  <app-advert [message]="'coming later' | uppercase"></app-advert>
+<div class="dispense x-container">
+  <div class="x-loader" *ngIf="loading">
+    <app-loader [message]="message"></app-loader>
+  </div>
+  <div class="header">ORDER FORM</div>
+  <div class="form">
+    <div class="formheader">
+      <h2>ORDER FORM</h2>
+    </div>
+    <div class="formitems">
+      <div class="formgroup">
+        <label for="title">order title</label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          [(ngModel)]="prescription.title"
+        />
+      </div>
+      <div class="formgroup">
+        <label for="medicine">medicine</label>
+        <input
+          list="medicines"
+          #y
+          [(ngModel)]="medicine"
+          (change)="getAvailable()"
+        />
+        <datalist id="medicines">
+          <option *ngFor="let _medicine of medicines" [value]="_medicine.name">
+            {{ _medicine.name }}
+          </option>
+        </datalist>
+      </div>
+      <div class="formgroup">
+        <label for="unit">unit</label>
+        <input type="text" name="unit" id="unit" [(ngModel)]="stockItem.unit" />
+      </div>
+      <div class="formgroup">
+        <label for="quantity">quantity</label>
+        <input type="number" [(ngModel)]="requested" />
+        <div class="info" *ngIf="stockItem.commodity.length > 0">
+          <p *ngIf="stockItem.commodity.length > 0">
+            available: {{ stockItem.stock / stockItem.unit_value }}
+            {{ stockItem.unit }}
+          </p>
+          <p *ngIf="stockItem.commodity.length > 0">
+            expiry: {{ getDate(stockItem.expiry) }}
+          </p>
+        </div>
+      </div>
+
+      <div class="formgroup">
+        <button class="submit" (click)="add()">ADD TO ORDER</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="items__container">
+    <div class="head">
+      <h2 class="head__content">
+        INVENTORY ITEMS ({{ prescription.items.length }})
+        <span *ngIf="uploaded.length">UPLOADED ({{ uploaded.length }})</span>
+        <span>ADDED: ({{ dispensed }})</span>
+      </h2>
+    </div>
+    <div class="items">
+      <table>
+        <thead>
+          <tr>
+            <th>medicine</th>
+            <th>unit</th>
+            <th>quantity</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of prescription.items">
+            <td>{{ i.commodity }}</td>
+            <td>{{ i.unit }}</td>
+            <td>
+              <input type="number" name="" id="" [(ngModel)]="i.quantity" />
+            </td>
+            <td><button (click)="removeItem(i)">DELETE</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="dispense">
+      <div class="formgroup submitted">
+        <button class="submit" (click)="dispense()">SUBMIT ORDER</button>
+      </div>
+    </div>
+  </div>
 </div>

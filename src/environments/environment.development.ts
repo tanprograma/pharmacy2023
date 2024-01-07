@@ -6,4 +6,5 @@ export const environment = {
   stores_url: 'http://localhost:5000/api/stores',
   units_url: 'http://localhost:5000/api/units',
   suppliers_url: 'http://localhost:5000/api/suppliers',
+  orders_url: 'http://localhost:5000/api/orders',
 };

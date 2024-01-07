@@ -6,4 +6,5 @@ export const environment = {
   stores_url: 'https://pharmacy2024.onrender.com/api/stores',
   units_url: 'https://pharmacy2024.onrender.com/api/units',
   suppliers_url: 'https://pharmacy2024.onrender.com/api/suppliers',
+  orders_url: 'https://pharmacy2024.onrender.com/api/orders',
 };

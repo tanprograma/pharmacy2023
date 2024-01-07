@@ -145,7 +145,7 @@ export class AddInventoryComponent {
       this.payloads.splice(0, 0, {
         payload: { quantity: this.requested },
         commodity: this.medicine,
-        expiry: this.expiryDate,
+        expiry: this.expiryDate.length > 0 ? this.expiryDate : undefined,
       });
       this.clearForm();
       return;

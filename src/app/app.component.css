@@ -23,11 +23,12 @@ nav ul {
 }
 nav li {
   height: 100%;
-  width: 100%;
+  flex: 1 1 auto;
 }
 nav a {
   display: flex;
   color: black;
+
   height: 100%;
   width: 100%;
   justify-content: center;
@@ -35,6 +36,8 @@ nav a {
 }
 nav a:hover {
   background-color: rgba(244, 239, 239, 0.8);
+  font-style: italic;
+  text-decoration: underline;
 }
 main {
   height: calc(100% * (90 / 100));

@@ -1,3 +1,23 @@
-<div class="advert">
-  <app-advert [message]="'coming later' | uppercase"></app-advert>
+<div class="orders" *ngIf="!loading">
+  <h1>ORDERS LIST: TOTAL ORDERS {{ orders.length }}</h1>
+  <p *ngIf="orders.length == 0">no orders to show</p>
+  <table *ngIf="orders.length > 0">
+    <thead>
+      <tr>
+        <th>title</th>
+        <th>items</th>
+        <th>created</th>
+        <th>updated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orders" (click)="redirect(order._id)">
+        <td>{{ order.title }}</td>
+        <td>{{ order.items.length }}</td>
+        <td>{{ getDate(order.created_date) }}</td>
+        <td>{{ getDate(order.updated_date) }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+<div class="loading" *ngIf="loading">fetching orders</div>

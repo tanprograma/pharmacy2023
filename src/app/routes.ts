@@ -32,6 +32,7 @@ import { AddInventoryComponent } from './components/add-inventory/add-inventory.
 import { AddInventoryContainerComponent } from './components/add-inventory-container/add-inventory-container.component';
 import { StockContainerComponent } from './components/stock-container/stock-container.component';
 import { AddExpiryContainerComponent } from './components/add-expiry-container/add-expiry-container.component';
+import { AddOrderContainerComponent } from './components/add-order-container/add-order-container.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/outlet/dispense' },
@@ -87,6 +88,7 @@ export const routes: Routes = [
     path: 'stock',
     component: StockContainerComponent,
   },
+
   {
     path: 'orders',
     component: OrdersContainerComponent,
@@ -116,3 +118,7 @@ export const routes: Routes = [
     // ],
   },
 ];
+//  {
+//     path: 'orders',
+//     component: AddOrderContainerComponent,
+//   },

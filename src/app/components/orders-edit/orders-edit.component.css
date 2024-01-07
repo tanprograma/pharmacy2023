@@ -1,0 +1,228 @@
+.order {
+  background-color: white;
+  height: 100%;
+  position: relative;
+}
+.edit {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.t-container,
+.editbox {
+  position: relative;
+}
+
+.should-confirm {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: rgb(121, 118, 118);
+}
+.add {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-form {
+  height: 80%;
+  width: 50%;
+}
+.should-confirm-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+}
+.confirm-btn {
+  margin-top: 5px;
+}
+.edit-form {
+  width: 50%;
+  height: 60%;
+  background-color: rgb(167, 160, 160);
+  border-radius: 15px;
+  padding: 10px;
+}
+.formgroup {
+  width: 95%;
+  margin: 5px auto;
+}
+input,
+label {
+  display: block;
+}
+input,
+button {
+  height: 5vh;
+  padding: 2px;
+  width: 100%;
+  border: 0;
+  border-radius: 5px;
+}
+input {
+  text-align: center;
+}
+input:focus {
+  border: 2px solid blue;
+}
+input:not(:focus) {
+  border: 1px solid black;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+/* code for table */
+.t-container {
+  height: 100%;
+  background-color: white;
+  padding: 10px;
+  position: relative;
+}
+
+table {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  color: black;
+  background-color: white;
+}
+
+th {
+  text-align: left;
+}
+th:nth-child(1) {
+  width: 40%;
+}
+
+th:nth-child(2),
+th:nth-child(3) {
+  width: 20%;
+}
+th:nth-child(4),
+th:nth-child(5) {
+  width: 10%;
+}
+
+th,
+td {
+  border: 1px solid lightgrey;
+  padding-left: 3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+tr th:first-child,
+tr td:first-child {
+  border-left: 0;
+}
+tr th:last-child,
+tr td:last-child {
+  border-right: 0;
+}
+tbody tr:hover {
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}
+.info {
+  background-color: white;
+}
+.info p {
+  margin: 2px 0;
+  text-align: center;
+}
+/* loader */
+.loading {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+/* code for heading and its content */
+.heading {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  margin-bottom: 10px;
+  height: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2px;
+}
+.t-container-table {
+  height: 80%;
+  overflow-y: scroll;
+}
+.t-container-table::-webkit-scrollbar {
+  display: none;
+}
+.stock-search {
+  display: flex;
+  justify-content: space-around;
+}
+.controls {
+  display: flex;
+  justify-content: left;
+}
+.controls-item {
+  flex: 0 0 100px;
+  margin: 5px 5px;
+}
+.controls button {
+  display: inline-block;
+}
+.search-item {
+  padding: 5px;
+  display: block;
+  border-radius: 5px;
+  border: 0;
+}
+.search-input {
+  flex: 0 0 80%;
+  text-transform: uppercase;
+}
+.search-clear {
+  flex: 0 0 19%;
+}
+h1 {
+  height: 5vh;
+  text-align: center;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+h1 span {
+  flex: 0 0 90%;
+  display: block;
+}
+h1 input,
+h1 label {
+  display: block;
+  margin: 4px;
+}
+h1 input {
+  flex: 0 0 auto;
+  font-size: medium;
+  width: 20px;
+  height: 20px;
+}
+h1 label {
+  flex: 0 0 auto;
+  font-size: medium;
+}
