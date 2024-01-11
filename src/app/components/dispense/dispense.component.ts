@@ -186,9 +186,11 @@ export class DispenseComponent implements OnInit {
   dispense() {
     if (!this.payloads.length) return;
     this.loading = true;
-
+    const mypayload = this.payloads.map((i) => {
+      return { ...i.payload, commodity: i.commodity };
+    });
     this.inventoryService
-      .dispense({ store: this.outlet, payload: this.payloads })
+      .dispense({ store: this.outlet, payload: mypayload })
       .subscribe((i) => {
         if (!i.length) {
           this.loading = false;

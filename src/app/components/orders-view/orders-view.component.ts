@@ -10,6 +10,7 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class OrdersViewComponent implements OnInit {
   orders: Order[] = [];
+  displayed: Order[] = [];
   loading = false;
   ngOnInit(): void {
     this.getOrders();
@@ -20,6 +21,7 @@ export class OrdersViewComponent implements OnInit {
     this.loading = true;
     this.orderService.getOrders().subscribe((orders) => {
       this.orders = orders;
+      this.displayed = orders;
       this.loading = false;
     });
   }
@@ -31,4 +33,12 @@ export class OrdersViewComponent implements OnInit {
     if (!id) return;
     this.router.navigate([`/orders/edit/${id}`]);
   }
+  // filter logic
+  term: string = '';
+  onChange() {
+    this.displayed = this.orders.filter((o) => {
+      return;
+    });
+  }
+  onClear() {}
 }
