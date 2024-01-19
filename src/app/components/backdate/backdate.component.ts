@@ -27,10 +27,12 @@ export class BackdateComponent implements OnInit {
   inventory: Inventory[] = [];
   client: string = '';
   outlet: string = '';
-  date: number = 0;
+  date: string = '';
   payloads: {
     commodity: string;
-    payload: { date?: number; client: string; quantity: number };
+    client: string;
+    date: number;
+    quantity: number;
   }[] = [];
   medicine: string = '';
   requested = 0;
@@ -55,9 +57,7 @@ export class BackdateComponent implements OnInit {
       }
     }, 5000);
   }
-  setDate(d: any) {
-    this.date = new Date(d).valueOf();
-  }
+
   getAvailable() {
     console.log('running available');
     const item = this.inventory.find((i) => {
@@ -94,14 +94,6 @@ export class BackdateComponent implements OnInit {
     this.getStores();
   }
 
-  getInventoryByStore() {
-    this.inventoryService
-      .getInventoryByStore(this.prescription.outlet)
-      .subscribe((i) => {
-        this.inventory = i;
-        console.log({ inventory: this.inventory });
-      });
-  }
   getClients() {
     if (this.clientService.clients.length) {
       this.clients = this.clientService.clients;
@@ -133,45 +125,34 @@ export class BackdateComponent implements OnInit {
     });
   }
 
-  prescription: {
-    client: string;
-    outlet: string;
-    date?: any;
-    items: { quantity: number; commodity: string }[];
-  } = {
-    client: '',
-    outlet: '',
-    date: 0,
-    items: [],
-  };
-
   delete(i: any) {
     this.payloads = this.payloads.filter((x) => {
       return x != i;
     });
   }
   add() {
+    if (this.date.length == 0) return;
     if (!this.requested && !this.medicine.length) return;
-    let indexx: number = 0;
-    const found = this.payloads.find((i, index) => {
-      indexx = index;
+
+    const found = this.payloads.find((i) => {
       return i.commodity == this.medicine;
     });
-    if (!found) {
-      if (this.date == 0) return;
-      this.payloads.splice(0, 0, {
-        payload: {
-          quantity: this.requested,
-          client: this.client,
-          date: this.date,
-        },
+    if (found == undefined) {
+      this.payloads.push({
+        quantity: this.requested,
+        client: this.client,
+        date: new Date(this.date).valueOf(),
         commodity: this.medicine,
+      }),
+        this.clearForm();
+    } else {
+      this.payloads.map((item) => {
+        return item.commodity == found.commodity
+          ? { ...item, quantity: item.quantity + this.requested }
+          : item;
       });
       this.clearForm();
-      return;
     }
-    this.payloads[indexx].payload.quantity += this.requested;
-    this.clearForm();
   }
   clearForm() {
     this.requested = 0;
